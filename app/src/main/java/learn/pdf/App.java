@@ -104,7 +104,10 @@ public class App {
 
     public Set<String> listFilesUsingJavaIO(String dir) {
         return Stream.of(new File(dir).listFiles())
-                .filter(file -> !file.isDirectory())
+                .filter(file -> {
+                    if(file.isDirectory()) return false;
+                    return file.getName().endsWith(".pdf");
+                })
                 .map(File::getName)
                 .collect(Collectors.toSet());
     }
