@@ -92,11 +92,13 @@ public class App {
 
         //Font ffont = new Font(Font.FontFamily.HELVETICA, 12, Font.ITALIC);
         Font ffont = new Font(BaseFont.createFont("fonts/THSarabunNew.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED),14);
-        Phrase footer = new Phrase(src, ffont);
 
+        Phrase footer = null;
         int noOfPages = reader.getNumberOfPages();
         for(int i=1; i<=noOfPages; i++) {
             PdfContentByte canvas = stamper.getOverContent(i);
+            String footerLabel = String.format("%s - %d",src,i);
+            footer = new Phrase(footerLabel, ffont);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, footer, 200, 22, 0);
         }
         stamper.close();
